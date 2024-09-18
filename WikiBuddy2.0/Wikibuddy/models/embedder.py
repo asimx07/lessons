@@ -62,6 +62,8 @@ class Embedder:
         logger.debug(f"Generated embedding of length {len(embedding)}")
 
         return embedding
+    
+    
 
 # If you want to test the file directly
 if __name__ == "__main__":

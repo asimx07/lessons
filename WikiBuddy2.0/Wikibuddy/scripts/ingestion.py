@@ -20,7 +20,7 @@ async def ingest(config: Config):
     vector_db = VectorDB(config.vector_db_dimension)
 
     # Fetch URLs
-    urls = await Wikipedia.gather_urls_from_file(config.url_files)
+    urls = await data_source.gather_urls_from_file(config.url_files)
     logger.info(f"Fetched {len(urls)} URLs")
 
     # Fetch documents
@@ -44,9 +44,9 @@ async def ingest(config: Config):
     embeddings = await embedder.embed_docs(all_chunks)
     logger.info(f"Created {len(embeddings)} embeddings")
 
-    # Index embeddings
-    vector_db.add(embeddings)
-    logger.info(f"Indexed {len(embeddings)} embeddings")
+    # Index embeddings and texts
+    vector_db.add(embeddings, all_chunks)
+    logger.info(f"Indexed {len(embeddings)} embeddings with their corresponding texts")
 
     # Save vector store
     vector_db.save(config.vector_db_filename)

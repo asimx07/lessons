@@ -21,7 +21,7 @@ class DataSource:
             print("Created new aiohttp ClientSession")
         
         print(f"Fetching {len(urls)} URLs")
-        tasks = [self.fetch_url(url) for url in urls]
+        tasks = [self.fetch_url(url) for url in urls] 
         results = await asyncio.gather(*tasks)
         print(f"Fetched {len(results)} documents")
         return results
@@ -32,8 +32,7 @@ class DataSource:
             text = await response.text()
             logger.debug(f"Fetched {len(text)} characters from {url}")
             return text
-    
-    
+        
     @staticmethod
     def ensure_dir(directory):
         if not os.path.exists(directory):
@@ -101,3 +100,7 @@ class NYTimes(DataSource):
     def __init__(self):
         super().__init__()
         print("Initialized NYTimes data source")
+ 
+
+
+
